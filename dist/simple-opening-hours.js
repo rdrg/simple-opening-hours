@@ -1,11 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var Holidays = require("date-holidays");
 var SimpleOpeningHours = /** @class */ (function () {
     /**
      * Creates the OpeningHours Object with OSM opening_hours string
      */
-    function SimpleOpeningHours(inp) {
+    function SimpleOpeningHours(inp, countryId) {
+        if (countryId === void 0) { countryId = 'PE'; }
         this.parse(inp);
+        this.holidays = new Holidays(countryId);
     }
     /**
      * returns the OpeningHours Object
@@ -18,7 +21,7 @@ var SimpleOpeningHours = /** @class */ (function () {
      */
     SimpleOpeningHours.prototype.isOpenOn = function (date) {
         var _this = this;
-        var testday = date.getDay();
+        var testday = this.holidays.isHoliday(date) ? 7 : date.getDay();
         var testtime = date.getHours() + ":" + date.getMinutes();
         var i = 0;
         var times;

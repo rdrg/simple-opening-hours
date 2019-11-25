@@ -1,9 +1,12 @@
+import * as Holidays from 'date-holidays';
+
 export class SimpleOpeningHours {
 	/**
 	 * Creates the OpeningHours Object with OSM opening_hours string
 	 */
-	constructor(inp: string) {
+	constructor(inp: string, countryId: string = 'PE') {
 		this.parse(inp);
+		this.holidays = new Holidays(countryId);
 	}
 
 	/**
@@ -17,7 +20,7 @@ export class SimpleOpeningHours {
 	 * Returns if the OpeningHours match on given Date
 	 */
 	public isOpenOn(date: Date): boolean {
-		let testday = date.getDay();
+		let testday = this.holidays.isHoliday(date) ? 7 : date.getDay();
 		let testtime = date.getHours() + ":" + date.getMinutes()
 		let i = 0;
 		let times: string[];
@@ -282,4 +285,5 @@ export class SimpleOpeningHours {
 	}
 
 	private openingHours: Object;
+	public holidays;
 }

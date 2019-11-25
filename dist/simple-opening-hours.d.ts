@@ -2,7 +2,7 @@ export declare class SimpleOpeningHours {
     /**
      * Creates the OpeningHours Object with OSM opening_hours string
      */
-    constructor(inp: string);
+    constructor(inp: string, countryId?: string);
     /**
      * returns the OpeningHours Object
      */
@@ -52,4 +52,5 @@ export declare class SimpleOpeningHours {
      */
     private compareTime;
     private openingHours;
+    holidays: any;
 }
